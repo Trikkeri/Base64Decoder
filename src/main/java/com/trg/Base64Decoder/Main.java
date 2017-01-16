@@ -10,7 +10,9 @@ public class Main {
 			@Override
 			public void run() {
 				try {
-					new View();
+					Model m = new Model();
+					View v = new View();
+					Controller c = new Controller(m, v);
 				} catch(Exception e) {
 					e.printStackTrace();
 				}

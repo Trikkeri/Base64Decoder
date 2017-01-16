@@ -17,7 +17,7 @@ public class View {
 	private JFrame frame;
 	private JPanel panel;
 	private JScrollPane jsp;
-	private JTextArea textArea;
+	private JTextArea transformTextArea;
 	private JButton decodeBtn;
 	private JButton encodeBtn;
 	
@@ -44,11 +44,11 @@ public class View {
         gbc.fill = GridBagConstraints.BOTH;
         frame.add(panel, gbc);
         
-        textArea = new JTextArea();
+        transformTextArea = new JTextArea();
         jsp = new JScrollPane();
         jsp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jsp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        jsp.setViewportView(textArea);
+        jsp.setViewportView(transformTextArea);
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		panel.add(jsp, gbc);
@@ -66,6 +66,18 @@ public class View {
 		gbc.gridy = 2;
 		panel.add(encodeBtn, gbc);
 		
-		frame.pack();
+		frame.pack(); 
+	}
+	
+	public String getTransformTextAreaText() {
+		return transformTextArea.getText();
+	}
+	
+	public void setTransfromTextAreaText(String str) {
+		transformTextArea.setText(str);
+	}
+	
+	public JButton getDecodeButton() {
+		return decodeBtn;
 	}
 }
