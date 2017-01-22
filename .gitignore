@@ -1,3 +1,7 @@
+!/build/libs/Base64Decoder-all-1.0.jar
 /.gradle/
-/build/
+/build/scripts
+/build/distributions
+/build/classes
+/build/tmp
 /bin/
