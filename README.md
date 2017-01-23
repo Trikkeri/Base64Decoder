@@ -1,7 +1,11 @@
 # Base64Decoder
-Decodes Base64 content without extra button presses. Accepts base64 input in 3 different forms:
-- base64 with linebreaks and encoded linebreak characters at the end each line
-- base64 in one long string where each supposed linebreak is done with empty space
-- base64 with linebreaks that have as empty space at the beginning of each line
+Aims to quickly decode base64 containing XML without extra button presses while copying decoded value to clipboard.
+Accepts base64 input in 4 different forms:
+- normal base64
+- base64 with line breaks and encoded line break (&#13;) characters at the end of each line
+- base64 in one long string where each line break is done with empty space instead of actual line break
+- base64 where each new line starts with an empty space
 
-If the decoded content is xml, it is parsed to human readable form (indents, linebreaks) and copied to clipboard.
+decoded content is parsed to human readable form (indents, linebreaks) and copied to clipboard.
+
+Does not currently work unless encoded content contains XML.

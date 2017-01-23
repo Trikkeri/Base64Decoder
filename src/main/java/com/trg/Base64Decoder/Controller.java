@@ -20,6 +20,10 @@ public class Controller {
 	}
 	
 	private void decode() {
-		view.setTransfromTextAreaText(model.decodeBase64(view.getTransformTextAreaText()));
+		String decodedValue = model.decodeBase64(view.getTransformTextAreaText());
+		view.setTransfromTextAreaText(decodedValue);
+		
+		ClipboardCopy c = new ClipboardCopy();
+		c.copyToClipBoard(decodedValue);
 	}
 }
