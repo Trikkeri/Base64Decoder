@@ -22,7 +22,7 @@ public class View {
 	private JButton encodeBtn;
 	
 	public View() {	
-        frame = new JFrame("SSN Generator");
+        frame = new JFrame("Base64 decoder / encoder");
         frame.setPreferredSize(new Dimension(1280, 1024));
         frame.setResizable(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
