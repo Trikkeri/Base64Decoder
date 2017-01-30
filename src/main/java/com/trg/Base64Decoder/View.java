@@ -29,7 +29,6 @@ public class View {
 	private JCheckBox copyToCBCheckbox;
 	
 	public View() {	
-		
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {

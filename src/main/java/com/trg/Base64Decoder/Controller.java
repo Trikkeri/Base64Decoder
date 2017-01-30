@@ -20,8 +20,7 @@ public class Controller {
 	}
 	
 	private void decode() {
-		
-		if(view.getTransformTextAreaText().length() >= 0) {
+		if(view.getTransformTextAreaText().length() == 0) {
 			return;
 		}
 		
@@ -35,6 +34,16 @@ public class Controller {
 	}
 	
 	private void encode() {
+		if(view.getTransformTextAreaText().length() == 0) {
+			return;
+		}
 		
+		String encodedValue = model.encode2Base64(view.getTransformTextAreaText());
+		view.setTransfromTextAreaText(encodedValue);
+		
+		if(view.getCopyToCBCheckbox().isSelected()) {
+			ClipboardCopy c = new ClipboardCopy();
+			c.copyToClipBoard(encodedValue);
+		}
 	}
 }

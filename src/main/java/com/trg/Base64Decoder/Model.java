@@ -70,4 +70,9 @@ public class Model {
 			// throw new RuntimeException(e);
 		}	
 	}
+	
+	public String encode2Base64(String value2Encode) {
+		byte[] encoded = Base64.getMimeEncoder().encode(value2Encode.getBytes());
+		return new String(encoded);
+	}
 }
