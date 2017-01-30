@@ -72,7 +72,12 @@ public class Model {
 	}
 	
 	public String encode2Base64(String value2Encode) {
-		byte[] encoded = Base64.getMimeEncoder().encode(value2Encode.getBytes());
+		byte[] encoded = null;
+		try {
+			encoded = Base64.getMimeEncoder().encode(value2Encode.getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return new String(encoded);
 	}
 }
