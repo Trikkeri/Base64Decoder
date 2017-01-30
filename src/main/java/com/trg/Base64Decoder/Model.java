@@ -65,7 +65,9 @@ public class Model {
 			transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
 			return stringWriter.toString();
 		} catch(Exception e) {
-			 throw new RuntimeException(e);
+			// Is not xml? Return without pretty print
+			return xml;
+			// throw new RuntimeException(e);
 		}	
 	}
 }

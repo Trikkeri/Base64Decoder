@@ -26,7 +26,6 @@ public class View {
 	private JButton decodeBtn;
 	private JButton encodeBtn;
 	private JPanel controlsPanel;
-	private JCheckBox isXmlCheckbox;
 	private JCheckBox copyToCBCheckbox;
 	
 	public View() {	
@@ -88,12 +87,8 @@ public class View {
 		encodeBtn = new JButton("Encode");
 		controlsPanel.add(encodeBtn);
 		
-		isXmlCheckbox = new JCheckBox("<html>Encoded value<br>contains xml</html>");
-		isXmlCheckbox.setToolTipText("This should be deselected if ");
-		controlsPanel.add(isXmlCheckbox);
-		
-		copyToCBCheckbox = new JCheckBox("<html>Copy processed<br>value to clipboard</html>");
-		isXmlCheckbox.setToolTipText("Decoded / Encoded value is automatically copied to clipboard after processing");
+		copyToCBCheckbox = new JCheckBox("<html>Copy to clipboard</html>");
+		copyToCBCheckbox.setToolTipText("Decoded / Encoded value is automatically copied to clipboard after processing");
 		controlsPanel.add(copyToCBCheckbox);
 		
 		frame.pack(); 
@@ -109,5 +104,13 @@ public class View {
 	
 	public JButton getDecodeButton() {
 		return decodeBtn;
+	}
+	
+	public JCheckBox getCopyToCBCheckbox() {
+		return copyToCBCheckbox;
+	}
+	
+	public JButton getEncodeButton() {
+		return encodeBtn;
 	}
 }

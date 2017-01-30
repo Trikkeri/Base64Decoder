@@ -8,22 +8,33 @@ public class Controller {
 	public Controller(Model m, View v) {
 		view = v;
 		model = m;
-		
-		initializeController();
 	}
 	
 	public void initializeView() {
+		view.getCopyToCBCheckbox().setSelected(true);
 	}
 	
 	public void initializeController() {
 		view.getDecodeButton().addActionListener(e -> decode());
+		view.getEncodeButton().addActionListener(e -> encode());
 	}
 	
 	private void decode() {
+		
+		if(view.getTransformTextAreaText().length() >= 0) {
+			return;
+		}
+		
 		String decodedValue = model.decodeBase64(view.getTransformTextAreaText());
 		view.setTransfromTextAreaText(decodedValue);
 		
-		ClipboardCopy c = new ClipboardCopy();
-		c.copyToClipBoard(decodedValue);
+		if(view.getCopyToCBCheckbox().isSelected()) {
+			ClipboardCopy c = new ClipboardCopy();
+			c.copyToClipBoard(decodedValue);
+		}
+	}
+	
+	private void encode() {
+		
 	}
 }
