@@ -1,35 +1,36 @@
 package com.trg.Base64Decoder;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 public class Model {
 
-	public String decodeBase64(String base64) {
+	public String decodeBase64(String base64) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, TransformerException {
 		byte[] decoded = Base64.getMimeDecoder().decode(removeEncodedCharacters(base64, "&#13;" , " "));
 		String returnValue = "";
 		
-		try {
-			returnValue =  (new String(decoded, "UTF-8") + "\n");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		returnValue =  (new String(decoded, "UTF-8") + "\n");
 		
 		return prettyPrintXML(returnValue);
 	}
@@ -40,7 +41,7 @@ public class Model {
 		return tidyStr;
 	}
 	
-	private String prettyPrintXML(String xml) {
+	private String prettyPrintXML(String xml) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, TransformerException {
 		try {
 			org.w3c.dom.Document document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder()
@@ -64,20 +65,15 @@ public class Model {
 			StringWriter stringWriter = new StringWriter();
 			transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
 			return stringWriter.toString();
-		} catch(Exception e) {
+		} catch(UnsupportedEncodingException e) {
 			// Is not xml? Return without pretty print
 			return xml;
 			// throw new RuntimeException(e);
 		}	
 	}
 	
-	public String encode2Base64(String value2Encode) {
-		byte[] encoded = null;
-		try {
-			encoded = Base64.getMimeEncoder().encode(value2Encode.getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+	public String encode2Base64(String value2Encode) throws UnsupportedEncodingException {
+		byte[] encoded = Base64.getMimeEncoder().encode(value2Encode.getBytes("UTF-8"));
 		return new String(encoded);
 	}
 }

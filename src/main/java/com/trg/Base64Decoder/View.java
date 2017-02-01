@@ -3,12 +3,15 @@ package com.trg.Base64Decoder;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -112,4 +115,12 @@ public class View {
 	public JButton getEncodeButton() {
 		return encodeBtn;
 	}
+	
+	public void displayErrorMessage(Throwable exception) {
+		StringWriter errors = new StringWriter();
+		exception.printStackTrace(new PrintWriter(errors));
+		
+		JOptionPane.showMessageDialog(frame, errors.toString(), "Something's gone wrong", JOptionPane.ERROR_MESSAGE);
+	}
+	 
 }
