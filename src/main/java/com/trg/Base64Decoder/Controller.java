@@ -26,15 +26,6 @@ public class Controller {
 	public void initializeController() {
 		view.getDecodeButton().addActionListener(e -> decode());
 		view.getEncodeButton().addActionListener(e -> encode());
-		
-		// Testing
-		
-		try {
-			throw new NullPointerException();
-		} catch (NullPointerException e) {
-			view.displayErrorMessage(e);
-		}
-		
 	}
 	
 	private void decode() {
@@ -45,10 +36,12 @@ public class Controller {
 		String decodedValue = "";
 		try {
 			decodedValue = model.decodeBase64(view.getTransformTextAreaText());
-		} catch (XPathExpressionException | SAXException | IOException | ParserConfigurationException
-				| TransformerException e) {
+		} catch (XPathExpressionException | ParserConfigurationException
+				| TransformerException | IOException e) {
 			view.displayErrorMessage(e);
-		}
+		} catch (SAXException e) {
+			// If content is not xml, do nothing
+		} 
 		view.setTransfromTextAreaText(decodedValue);
 		
 		if(view.getCopyToCBCheckbox().isSelected()) {

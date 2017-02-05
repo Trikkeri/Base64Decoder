@@ -60,6 +60,7 @@ public class View {
         frame.add(jPanel, gbc);
         
         transformTextArea = new JTextArea();
+        transformTextArea.setFont(transformTextArea.getFont().deriveFont(12f));
         gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.BOTH;
 		gbc.weightx = 1.0;
@@ -120,7 +121,17 @@ public class View {
 		StringWriter errors = new StringWriter();
 		exception.printStackTrace(new PrintWriter(errors));
 		
-		JOptionPane.showMessageDialog(frame, errors.toString(), "Something's gone wrong", JOptionPane.ERROR_MESSAGE);
+		JTextArea jta = new JTextArea(errors.toString());
+		jta.setFont(jta.getFont().deriveFont(11f));
+		@SuppressWarnings("serial")
+		JScrollPane jsp = new JScrollPane(jta) {
+			@Override
+			public Dimension getPreferredSize() {
+				return new Dimension(480, 320);
+			}
+		};
+		JOptionPane.showMessageDialog(
+				null, jsp, "Something's gone wrong", JOptionPane.ERROR_MESSAGE);
 	}
 	 
 }

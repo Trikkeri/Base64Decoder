@@ -26,7 +26,7 @@ import org.xml.sax.SAXException;
 
 public class Model {
 
-	public String decodeBase64(String base64) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, TransformerException {
+	public String decodeBase64(String base64) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException {
 		byte[] decoded = Base64.getMimeDecoder().decode(removeEncodedCharacters(base64, "&#13;" , " "));
 		String returnValue = "";
 		
@@ -41,35 +41,31 @@ public class Model {
 		return tidyStr;
 	}
 	
-	private String prettyPrintXML(String xml) throws SAXException, IOException, ParserConfigurationException, XPathExpressionException, TransformerException {
-		try {
-			org.w3c.dom.Document document = DocumentBuilderFactory.newInstance()
-					.newDocumentBuilder()
-					.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
-			
-			XPath xPath = XPathFactory.newInstance().newXPath();
-			NodeList nodeList = (NodeList) xPath.evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
-			
-			for(int i = 0; i < nodeList.getLength(); i++) {
-				Node node = nodeList.item(i);
-				node.getParentNode().removeChild(node);
-			}
-			
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			transformerFactory.setAttribute("indent-number", 4);
-			Transformer transformer = transformerFactory.newTransformer();
-			transformer.setOutputProperty(OutputKeys.ENCODING, "UTFT-8");
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			
-			StringWriter stringWriter = new StringWriter();
-			transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
-			return stringWriter.toString();
-		} catch(UnsupportedEncodingException e) {
-			// Is not xml? Return without pretty print
-			return xml;
-			// throw new RuntimeException(e);
-		}	
+	private String prettyPrintXML(String xml) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException, UnsupportedEncodingException {	
+		
+		org.w3c.dom.Document document = DocumentBuilderFactory.newInstance()
+				.newDocumentBuilder()
+				.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
+		
+		XPath xPath = XPathFactory.newInstance().newXPath();
+		NodeList nodeList = (NodeList) xPath.evaluate("//text()[normalize-space()='']", document, XPathConstants.NODESET);
+		
+		for(int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			node.getParentNode().removeChild(node);
+		}
+		
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		transformerFactory.setAttribute("indent-number", 4);
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.ENCODING, "UTFT-8");
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		
+		StringWriter stringWriter = new StringWriter();
+		transformer.transform(new DOMSource(document), new StreamResult(stringWriter));
+		
+		return stringWriter.toString();
 	}
 	
 	public String encode2Base64(String value2Encode) throws UnsupportedEncodingException {
