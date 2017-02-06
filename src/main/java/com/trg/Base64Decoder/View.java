@@ -11,6 +11,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -30,6 +31,7 @@ public class View {
 	private JButton encodeBtn;
 	private JPanel controlsPanel;
 	private JCheckBox copyToCBCheckbox;
+	private JLabel errorLabel;
 	
 	public View() {	
         try {
@@ -94,6 +96,9 @@ public class View {
 		copyToCBCheckbox.setToolTipText("Decoded / Encoded value is automatically copied to clipboard after processing");
 		controlsPanel.add(copyToCBCheckbox);
 		
+		errorLabel = new JLabel("<html> <br> </html>");
+		controlsPanel.add(errorLabel);
+		
 		frame.pack(); 
 	}
 	
@@ -132,6 +137,10 @@ public class View {
 		};
 		JOptionPane.showMessageDialog(
 				null, jsp, "Something's gone wrong", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	public JLabel getErrorLabel() {
+		return errorLabel;
 	}
 	 
 }

@@ -40,7 +40,7 @@ public class Controller {
 				| TransformerException | IOException e) {
 			view.displayErrorMessage(e);
 		} catch (SAXException e) {
-			// If content is not xml, do nothing
+			setErrorLabelText("<html>Decoded value is not xml or is not<br>wellformed, pretty print canceled</html>");
 		} 
 		view.setTransfromTextAreaText(decodedValue);
 		
@@ -49,7 +49,7 @@ public class Controller {
 			c.copyToClipBoard(decodedValue);
 		}
 	}
-	
+
 	private void encode() {
 		if(view.getTransformTextAreaText().length() == 0) {
 			return;
@@ -67,5 +67,9 @@ public class Controller {
 			ClipboardCopy c = new ClipboardCopy();
 			c.copyToClipBoard(encodedValue);
 		}
+	}
+	
+	private void setErrorLabelText(String string) {
+		view.getErrorLabel().setText(string);
 	}
 }
