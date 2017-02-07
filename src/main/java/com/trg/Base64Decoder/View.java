@@ -1,5 +1,7 @@
 package com.trg.Base64Decoder;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
@@ -82,21 +85,33 @@ public class View {
 		gbc.gridy = 1;
 		gbc.insets.set(10,10,10,10);
 		controlsPanel.setLayout(new BoxLayout(controlsPanel, BoxLayout.Y_AXIS));
+		
 		frame.add(controlsPanel, gbc);
 		
 		decodeBtn = new JButton("Decode");
+		decodeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		controlsPanel.add(decodeBtn);
 		
 		controlsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
 		
 		encodeBtn = new JButton("Encode");
+		encodeBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
 		controlsPanel.add(encodeBtn);
 		
 		copyToCBCheckbox = new JCheckBox("<html>Copy to clipboard</html>");
+		copyToCBCheckbox.setAlignmentX(Component.CENTER_ALIGNMENT);
+		copyToCBCheckbox.setHorizontalAlignment(SwingConstants.CENTER);
 		copyToCBCheckbox.setToolTipText("Decoded / Encoded value is automatically copied to clipboard after processing");
 		controlsPanel.add(copyToCBCheckbox);
 		
-		errorLabel = new JLabel("<html> <br> </html>");
+		controlsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		
+		errorLabel = new JLabel(" ");
+		errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+		errorLabel.setMinimumSize(new Dimension(275, 35));
+		errorLabel.setPreferredSize(new Dimension(275, 35));
+		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		errorLabel.setForeground(Color.red);
 		controlsPanel.add(errorLabel);
 		
 		frame.pack(); 

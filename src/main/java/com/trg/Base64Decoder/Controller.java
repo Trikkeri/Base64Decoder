@@ -41,6 +41,7 @@ public class Controller {
 			view.displayErrorMessage(e);
 		} catch (SAXException e) {
 			setErrorLabelText("<html>Decoded value is not xml or is not<br>wellformed, pretty print canceled</html>");
+			System.out.println(view.getErrorLabel().getSize().toString());
 		} 
 		view.setTransfromTextAreaText(decodedValue);
 		
