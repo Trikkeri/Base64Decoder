@@ -1,8 +1,11 @@
 package com.trg.Base64Decoder;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import javax.swing.Timer;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
@@ -72,5 +75,13 @@ public class Controller {
 	
 	private void setErrorLabelText(String string) {
 		view.getErrorLabel().setText(string);
+		
+		ActionListener taskPerformer = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				view.getErrorLabel().setText(" ");
+			}
+		};
+		new Timer(5000, taskPerformer).start();
 	}
 }
