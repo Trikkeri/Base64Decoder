@@ -6,8 +6,6 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
-import javax.swing.text.Document;
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
@@ -23,19 +21,23 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 public class Model {
 
-	public String decodeBase64(String base64) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException {
+	// Add another method for decoding string? If xml one fails, use second one in controller?
+
+	public String decodeBase64(String base64, boolean usePrettyPrint) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException {
 		byte[] decoded = Base64.getMimeDecoder().decode(removeEncodedCharacters(base64, "&#13;" , " "));
 		String returnValue = "";
 		
 		returnValue =  (new String(decoded, "UTF-8") + "\n");
 		
-		return prettyPrintXML(returnValue);
+		if(usePrettyPrint) {
+			returnValue = prettyPrintXML(returnValue);
+		}
+		return returnValue;
 	}
 	
 	private String removeEncodedCharacters(String str, String whatToRemove, String replacedWith) {

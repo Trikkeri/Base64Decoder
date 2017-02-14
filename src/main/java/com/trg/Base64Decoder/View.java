@@ -125,6 +125,10 @@ public class View {
 		transformTextArea.setText(str);
 	}
 	
+	public JTextArea getTransfromTextArea() {
+		return transformTextArea;
+	}
+	
 	public JButton getDecodeButton() {
 		return decodeBtn;
 	}
@@ -157,5 +161,4 @@ public class View {
 	public JLabel getErrorLabel() {
 		return errorLabel;
 	}
-	 
 }

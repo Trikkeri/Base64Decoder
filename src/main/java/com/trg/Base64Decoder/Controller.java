@@ -36,21 +36,34 @@ public class Controller {
 			return;
 		}
 		
-		String decodedValue = "";
+		boolean errorsDuringDecoding = false;
+		String decodedValueWithPrettyPrint = "";
+		String decodedValueWithoutPrettyPrint = "";
+		String returnValue = "";
+		
 		try {
-			decodedValue = model.decodeBase64(view.getTransformTextAreaText());
+			decodedValueWithoutPrettyPrint = model.decodeBase64(view.getTransformTextAreaText(), false);
+			decodedValueWithPrettyPrint = model.decodeBase64(view.getTransformTextAreaText(), true);
 		} catch (XPathExpressionException | ParserConfigurationException
 				| TransformerException | IOException e) {
 			view.displayErrorMessage(e);
+			errorsDuringDecoding = true;
 		} catch (SAXException e) {
 			setErrorLabelText("<html>Decoded value is not xml or is not<br>wellformed, pretty print canceled</html>");
-			System.out.println(view.getErrorLabel().getSize().toString());
-		} 
-		view.setTransfromTextAreaText(decodedValue);
-		
-		if(view.getCopyToCBCheckbox().isSelected()) {
-			ClipboardCopy c = new ClipboardCopy();
-			c.copyToClipBoard(decodedValue);
+			errorsDuringDecoding = true;
+		} finally {
+			if(errorsDuringDecoding) {
+				returnValue = decodedValueWithoutPrettyPrint;
+			} else {
+				returnValue = decodedValueWithPrettyPrint;
+			}
+			
+			view.setTransfromTextAreaText(returnValue);
+			
+			if(view.getCopyToCBCheckbox().isSelected()) {
+				ClipboardCopy c = new ClipboardCopy();
+				c.copyToClipBoard(returnValue);
+			}
 		}
 	}
 
