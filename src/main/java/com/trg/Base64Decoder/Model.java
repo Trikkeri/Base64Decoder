@@ -26,8 +26,6 @@ import org.xml.sax.SAXException;
 
 public class Model {
 
-	// Add another method for decoding string? If xml one fails, use second one in controller?
-
 	public String decodeBase64(String base64, boolean usePrettyPrint) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException {
 		byte[] decoded = Base64.getMimeDecoder().decode(removeEncodedCharacters(base64, "&#13;" , " "));
 		String returnValue = "";
@@ -46,8 +44,7 @@ public class Model {
 		return tidyStr;
 	}
 	
-	private String prettyPrintXML(String xml) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException, UnsupportedEncodingException {	
-		
+	private String prettyPrintXML(String xml) throws IOException, ParserConfigurationException, XPathExpressionException, TransformerException, SAXException, UnsupportedEncodingException {
 		org.w3c.dom.Document document = DocumentBuilderFactory.newInstance()
 				.newDocumentBuilder()
 				.parse(new InputSource(new ByteArrayInputStream(xml.getBytes("UTF-8"))));
@@ -64,7 +61,7 @@ public class Model {
 		transformerFactory.setAttribute("indent-number", 4);
 		Transformer transformer = transformerFactory.newTransformer();
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTFT-8");
-		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
+		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "no");
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		
 		StringWriter stringWriter = new StringWriter();
