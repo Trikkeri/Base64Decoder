@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -43,7 +44,9 @@ public class testModel {
 	}
 	
 	@Test 
-	public void testDecode() {
+	public void testEncode() throws UnsupportedEncodingException {
+		String encodedValue = m.encode2Base64("This is a test string, ignore please");
+		assertEquals("VGhpcyBpcyBhIHRlc3Qgc3RyaW5nLCBpZ25vcmUgcGxlYXNl", encodedValue);
 	}
 
 }
