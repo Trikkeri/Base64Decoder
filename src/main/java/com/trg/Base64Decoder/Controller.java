@@ -95,6 +95,8 @@ public class Controller {
 				view.getErrorLabel().setText(" ");
 			}
 		};
-		new Timer(5000, taskPerformer).start();
+		Timer t = new Timer(5000, taskPerformer); 
+		t.setRepeats(false);
+		t.start();
 	}
 }
