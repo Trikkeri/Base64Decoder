@@ -1,8 +1,10 @@
+!/build/distributions
 !/build/libs
 /.gradle/
 /build/scripts
-/build/distributions
 /build/classes
 /build/tmp
 /bin/
 /build/
+gradle-app.setting
+/.settings

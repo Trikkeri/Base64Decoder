@@ -46,10 +46,11 @@ public class Controller {
 			decodedValueWithPrettyPrint = model.decodeBase64(view.getTransformTextAreaText(), true);
 		} catch (XPathExpressionException | ParserConfigurationException
 				| TransformerException | IOException e) {
-			view.displayErrorMessage(e);
+			view.displayErrorMessage(e, null);
 			errorsDuringDecoding = true;
 		} catch (SAXException e) {
-			setErrorLabelText("<html>Decoded value is not xml or is not<br>wellformed, pretty print canceled</html>");
+//			setErrorLabelText("<html>Decoded value is not xml or is not<br>wellformed, pretty print canceled</html>");
+			view.displayErrorMessage(null, "Decoded value is not xml or is not wellformed.\nDecoding without prettyprint.");
 			errorsDuringDecoding = true;
 		} finally {
 			if(errorsDuringDecoding) {
@@ -76,7 +77,7 @@ public class Controller {
 		try {
 			encodedValue = model.encode2Base64(view.getTransformTextAreaText());
 		} catch (UnsupportedEncodingException e) {
-			view.displayErrorMessage(e);
+			view.displayErrorMessage(e, null);
 		}
 		view.setTransfromTextAreaText(encodedValue);
 		

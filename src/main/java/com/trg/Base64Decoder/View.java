@@ -104,15 +104,17 @@ public class View {
 		copyToCBCheckbox.setToolTipText("Decoded / Encoded value is automatically copied to clipboard after processing");
 		controlsPanel.add(copyToCBCheckbox);
 		
-		controlsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		// Error labels takes too much space, figure another solution
 		
-		errorLabel = new JLabel(" ");
-		errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-		errorLabel.setMinimumSize(new Dimension(275, 35));
-		errorLabel.setPreferredSize(new Dimension(275, 35));
-		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		errorLabel.setForeground(Color.red);
-		controlsPanel.add(errorLabel);
+//		controlsPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+		
+//		errorLabel = new JLabel(" ");
+//		errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+//		errorLabel.setMinimumSize(new Dimension(275, 35));
+//		errorLabel.setPreferredSize(new Dimension(275, 35));
+//		errorLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//		errorLabel.setForeground(Color.red);
+//		controlsPanel.add(errorLabel);
 		
 		frame.pack(); 
 	}
@@ -141,11 +143,17 @@ public class View {
 		return encodeBtn;
 	}
 	
-	public void displayErrorMessage(Throwable exception) {
+	public void displayErrorMessage(Throwable exception, String message) {
 		StringWriter errors = new StringWriter();
-		exception.printStackTrace(new PrintWriter(errors));
+		JTextArea jta = new JTextArea();
+		jta.setEditable(false);
+		if(exception != null) {
+			exception.printStackTrace(new PrintWriter(errors));
+			jta.setText(errors.toString());
+		} else {
+			jta.setText(message.toString());
+		}
 		
-		JTextArea jta = new JTextArea(errors.toString());
 		jta.setFont(jta.getFont().deriveFont(11f));
 		@SuppressWarnings("serial")
 		JScrollPane jsp = new JScrollPane(jta) {
@@ -155,7 +163,7 @@ public class View {
 			}
 		};
 		JOptionPane.showMessageDialog(
-				null, jsp, "Something's gone wrong", JOptionPane.ERROR_MESSAGE);
+				null, jsp, "Something has gone wrong", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	public JLabel getErrorLabel() {
